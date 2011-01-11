@@ -11,10 +11,10 @@
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
         encode = function(object){
-          return global.encodeURIComponent(JSON.stringify(object));
+          return encodeURIComponent(JSON.stringify(object));
         },
         decode = function(string){
-          var decoded = global.decodeURIComponent(string);
+          var decoded = decodeURIComponent(string);
           return (decoded && JSON.parse(decoded));
         },
         storage = (function(){
@@ -78,7 +78,7 @@
    * @constructor
    */
   var StorageWrapper = function(){
-    var iface = global['localdStorage'] && prepare_local() || prepare_cookie();
+    var iface = global['localStorage'] && prepare_local() || prepare_cookie();
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
 
