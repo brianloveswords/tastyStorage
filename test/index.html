@@ -19,6 +19,7 @@
       newItem.innerHTML = msg;
       c.appendChild(newItem);
     }
+    
     var obj = {
       num1: Math.random(),
       num2: Math.random(),
@@ -31,12 +32,14 @@
     var prev_obj = localStorage.getItem('test')
     log('previous');
     for (var prop in prev_obj) {
-      log('' + prop + ': ' + obj[prop]);
+      log('' + prop + ': ' + prev_obj[prop]);
     }
+    
     log('new');
     for (var prop in obj) {
       log('' + prop + ': ' + obj[prop]);
     }
+    
     localStorage.setItem('test', obj);
   </script>
   </body>
