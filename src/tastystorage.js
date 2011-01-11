@@ -1,7 +1,4 @@
 // determine JSON stringifier/parser to use.
-alert('starting tastystorage file.');
-alert(JSON);
-
 (function(global, document, JSON){
   var prepare_storage = function(scope){
     if (!JSON || !JSON.stringify || !JSON.parse) {
@@ -58,7 +55,6 @@ alert(JSON);
       'length': calculate_length()
     };
   };
-  alert('defining constructor');
   /**
    * @constructor
    */
@@ -67,7 +63,6 @@ alert(JSON);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
   
-  alert('providing fallbacks');
   global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
   global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
   
