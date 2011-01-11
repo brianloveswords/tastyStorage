@@ -66,4 +66,7 @@
   };
   global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
   global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
+  
+  alert(global);
+  alert(global.localStorage);
 })(this, this.document, JSON);
