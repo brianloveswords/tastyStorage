@@ -55,18 +55,10 @@
   var prepare_local = function(){
     return {
       'interface': 'localStorage',
-      'clear': function() {
-        return localStorage.clear();
-      },
-      'getItem': function(key) {
-        return localStorage[key];
-      },
-      'setItem': function(key, value) {
-        return localStorage[key] = value;
-      },
-      'removeItem': function(key) {
-        return localStorage.removeItem(key);
-      },
+      'clear': localStorage.clear,
+      'getItem': localStorage.getItem,
+      'setItem': localStorage.setItem,
+      'removeItem': localStorage.removeItem,
       'length': function() {
         return localStorage.length;
       }
