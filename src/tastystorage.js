@@ -1,5 +1,7 @@
 // determine JSON stringifier/parser to use.
+alert('starting tastystorage file.');
 alert(JSON);
+
 (function(global, document, JSON){
   var prepare_storage = function(scope){
     if (!JSON || !JSON.stringify || !JSON.parse) {
