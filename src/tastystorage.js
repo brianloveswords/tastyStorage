@@ -62,7 +62,8 @@
       return _setItem.call(storage, key, JSON.stringify(value));
     };
     storage.getItem = function(key){
-      return JSON.parse(_getItem.call(storage, key));
+      var item = _getItem.call(storage, key);
+      return JSON.parse(item);
     };
     return storage;
   };
