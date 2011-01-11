@@ -20,6 +20,7 @@
         storage = (function(){
           var matches = document.cookie.match(STORAGE_REGEXP),
               result = (matches && matches[1]) || '';
+          alert('about to decode');
           return (decode(result) || {});
         })(),
         update = function(){
@@ -30,8 +31,6 @@
           for (var prop in storage) storage.hasOwnProperty(prop) && (len += 1);
           return len;
         };
-    
-    alert(storage);
     
     return {
       'interface': 'document.cookie',
