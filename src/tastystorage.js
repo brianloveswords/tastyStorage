@@ -56,7 +56,7 @@
       'length': calculate_length()
     };
   };
-  
+  alert('defining constructor');
   /**
    * @constructor
    */
@@ -64,9 +64,10 @@
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
+  
+  alert('providing fallbacks');
   global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
   global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
   
-  alert(global);
-  alert(global.localStorage);
+  alert('fallbacks defined');
 })(this, this.document, JSON);
