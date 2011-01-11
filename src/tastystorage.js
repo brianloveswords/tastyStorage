@@ -64,10 +64,6 @@
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
-
-  (global['t_localStorage'] = new StorageWrapper('local'));
-  (global['t_sessionStorage'] = new StorageWrapper('session'));
-  
-  //global['localStorage'] || (global['t_localStorage'] = new StorageWrapper('local'));
-  //global['sessionStorage'] || (global['t_sessionStorage'] = new StorageWrapper('session'));
+  global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
+  global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
 })(this, this.document, JSON);
