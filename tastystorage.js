@@ -35,7 +35,6 @@
         return storage[key];
       },
       'setItem': function(key, value) {
-        if (value === undefined) throw new Error('You must set a value when using setItem(key, value)');
         storage[key] = value;
         update();
         return value;
@@ -62,7 +61,6 @@
         return localStorage[key];
       },
       'setItem': function(key, value) {
-        if (value === undefined) throw new Error('You must set a value when using setItem(key, value)');
         return localStorage[key] = value;
       },
       'removeItem': function(key) {
