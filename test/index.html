@@ -29,7 +29,7 @@
       }
     };
     
-    var prev_obj = localStorage.getItem('test')
+    var prev_obj = tastyStorage.getItem('test')
     log('previous');
     for (var prop in prev_obj) {
       log('' + prop + ': ' + prev_obj[prop]);
@@ -40,7 +40,7 @@
       log('' + prop + ': ' + obj[prop]);
     }
     
-    localStorage.setItem('test', obj);
+    tastyStorage.setItem('test', obj);
   </script>
   </body>
 </html>

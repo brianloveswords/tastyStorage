@@ -7,7 +7,7 @@
     
     var STORAGE_NAME = scope+'Storage',
         STORAGE_REGEXP = RegExp(STORAGE_NAME+'=([^;]*)'),
-        FRESH = (scope == 'local') && ';expires=Tue, 13 Aug 2100 07:30:00 UTC' || '',
+        FRESH = (scope !== 'session') && ';expires=Tue, 13 Aug 2100 07:30:00 UTC' || '',
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
         encode = function(object){
@@ -26,51 +26,53 @@
         update = function(){
           document.cookie = STORAGE_NAME + '=' + encode(storage) + FRESH;
         },
-        calculate_length = function(){
-          var len = 0;
-          for (var prop in storage) storage.hasOwnProperty(prop) && (len += 1);
-          return len;
-        };
     
     return {
       'interface': 'document.cookie',
       'clear': function() {
         document.cookie = STORAGE_NAME + '=null' + SPOILED;
-        this.length = 0;
       },
       'getItem': function(key) {
         return storage[key];
       },
       'setItem': function(key, value) {
         storage[key] = value;
-        this.length = calculate_length();
         update();
         return value;
       },
       'removeItem': function(key) {
         delete storage[key];
-        this.length = calculate_length();
         update();
       },
-      'length': calculate_length()
+      'length': function() {
+        var len = 0;
+        for (var prop in storage) storage.hasOwnProperty(prop) && (len += 1);
+        return len;
+      }
     };
   };
   var augment = function(storage) {
-    var _setItem = storage.setItem;
-    var _getItem = storage.getItem;
-    storage.setItem = function(key, value){
-      return _setItem.call(storage, key, JSON.stringify(value));
+    return {
+      'interface': 'DOMStorage',
+      'clear': storage.clear,
+      'removeItem': storage.removeItem,
+      'setItem': function(key, value){
+        return storage.setItem(key, JSON.stringify(value));
+      },
+      'getItem': function(key) {
+        return JSON.parse(storage.getItem.call(storage, key));
+      },
+      'length': function() {
+        return storage.length;
+      }
     };
-    storage.getItem = function(key){
-      var item = _getItem.call(storage, key);
-      return JSON.parse(item);
-    };
-    return storage;
   };
   /**
    * @constructor
    */
   var StorageWrapper = function(scope){
+    if ( !(this instanceof arguments.callee) ) return new StorageWrapper(scope);
+    
     var existing_storage = global[scope+'Storage'];
     if (existing_storage) return augment(existing_storage);
     
@@ -78,7 +80,5 @@
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
   
-  global['localStorage'] = new StorageWrapper('local');
-  global['sessionStorage'] = new StorageWrapper('session');
-
+  global['tastyStorage'] = new StorageWrapper('local');
 })(this, this.document, JSON);
