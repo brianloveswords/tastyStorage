@@ -31,6 +31,7 @@
           return len;
         };
     
+    alert(storage);
     
     return {
       'interface': 'document.cookie',
