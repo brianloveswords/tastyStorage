@@ -1,6 +1,6 @@
 // determine JSON stringifier/parser to use.
 
-(function(global, document, JSON, undefined){
+(function(global, document, JSON){
   var prepare_cookie = function(){
     if (!JSON || !JSON.stringify || !JSON.parse) {
       throw new Error("tastystorage.js: Expecting a JSON object with stringify() and parse() methods.");
@@ -8,6 +8,7 @@
     
     var STORAGE_NAME = 'tastyStorage',
         STORAGE_REGEXP = RegExp(STORAGE_NAME+'=([a-zA-Z0-9%]*)'),
+        FRESH = ';expires=Tue, 13 Aug 2100 07:30:00 UTC',
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
         encode = function(object){
@@ -23,7 +24,7 @@
           return (decode(result) || {});
         })(),
         update = function(){
-          document.cookie = STORAGE_NAME + '=' + encode(storage);
+          document.cookie = STORAGE_NAME + '=' + encode(storage) + FRESH;
         };
     
     return {
