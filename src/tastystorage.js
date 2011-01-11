@@ -59,12 +59,11 @@
    * @constructor
    */
   var StorageWrapper = function(scope){
+    alert('defining ' + scope + ' storage');
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
   
   global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
   global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
-  
-  alert('fallbacks defined');
 })(this, this.document, JSON);
