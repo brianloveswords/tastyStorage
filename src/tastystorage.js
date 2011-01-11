@@ -15,12 +15,12 @@
         },
         decode = function(string){
           var decoded = decodeURIComponent(string);
+          alert('decoded: ' + decoded);
           return (decoded && JSON.parse(decoded));
         },
         storage = (function(){
           var matches = document.cookie.match(STORAGE_REGEXP),
               result = (matches && matches[1]) || '';
-          alert('about to decode');
           return (decode(result) || {});
         })(),
         update = function(){
