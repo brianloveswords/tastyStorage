@@ -60,7 +60,7 @@
         return storage.setItem(key, JSON.stringify(value));
       },
       'getItem': function(key) {
-        return JSON.parse(storage.getItem.call(storage, key));
+        return JSON.parse(storage.getItem(key));
       },
       'length': function() {
         return storage.length;
