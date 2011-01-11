@@ -12,12 +12,15 @@
   <script>
     var log = function(msg){
     var c = document.getElementById('console');
+    alert(c);
     var newItem = document.createElement('li');
     newItem.innerHTML = msg;
     c.appendChild(newItem);
     }
     
     var x = Math.random();
+    
+    alert(localStorage.getItem('random'));
     
     log('Previous random number (local): ' + localStorage.getItem('random'));
     log('New random number: ' + x);
