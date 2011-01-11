@@ -1,18 +1,52 @@
-// step 1: figure out if localstorage is supported
-//   step 1a: if not, create cookie parser
-// step 2: create wrapper methods for setting localstorage properties
-// step 3?: get to work with sessionstore?
+// determine JSON stringifier/parser to use.
 
-
-(function(global, document){
+(function(global, document, JSON, undefined){
   var prepare_cookie = function(){
+    var STORAGE_NAME = 'tastyStorage';
+    var STORAGE_REGEXP = RegExp(STORAGE_NAME+'=([a-zA-Z0-9%]*)');
     var SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC';
-        var encode = function(object){};
-    var decode = function(string){};
-    var retrieve = function(){};
-    var store = function(){};
+    if (!JSON || !JSON.stringify || !JSON.parse) {
+      throw new Error("tastystorage.js: Expecting a JSON object with stringify() and parse() methods.");
+    }
+    var encode = function(object){
+      return global.encodeURIComponent(JSON.stringify(object));
+    };
+    var decode = function(string){
+      var decoded = global.decodeURIComponent(string);
+      return (decoded && JSON.parse(decoded));
+    };
+    var storage = (function(){
+      var matches = document.cookie.match(STORAGE_REGEXP),
+          result = (matches && matches[1]) || '';
+      return (decode(result) || {});
+    })();
+    var update = function(){
+      document.cookie = STORAGE_NAME + '=' + encode(storage);
+    };
     this.interface = 'document.cookie';
+    this['clear'] = function(){
+      document.cookie = STORAGE_NAME + '=null' + SPOILED;
+    };
+    this['getItem'] = function(key){
+      return storage[key];
+    };
+    this['setItem'] = function(key, value){
+      if (value === undefined) throw new Error('You must set a value when using setItem(key, value)');
+      storage[key] = value;
+      update();
+      return value;
+    };
+    this['removeItem'] = function(key) {
+      delete storage[key];
+      update();
+    };
+    this['length'] = function(){
+      var len = 0;
+      for (var prop in storage) storage.hasOwnProperty(prop) && (len += 1);
+      return len;
+    };
   };
+  
   var prepare_local = function(){
     this.interface = 'localStorage';
     this['clear'] = function(){
@@ -40,4 +74,4 @@
 
   global['tastyStorage'] = StorageWrapper();
 
-})(this, this.document);
+})(this, this.document, JSON);
