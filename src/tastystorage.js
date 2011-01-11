@@ -56,7 +56,14 @@
     };
   };
   var augment = function(storage) {
-    alert('augmenting');
+    var _setItem = storage.setItem;
+    var _getItem = storage.getItem;
+    storage.setItem = function(key, value){
+      return _setItem.call(storage, key, JSON.stringify(value));
+    };
+    storage.getItem = function(key){
+      return JSON.parse(_getItem.call(storage, key));
+    };
     return storage;
   };
   /**
