@@ -25,7 +25,7 @@
         })(),
         update = function(){
           document.cookie = STORAGE_NAME + '=' + encode(storage) + FRESH;
-        },
+        };
     
     return {
       'interface': 'document.cookie',
