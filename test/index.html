@@ -4,4 +4,21 @@
     <title>TastyStorage test</title>
     <script src='../src/tastystorage.js'></script>
   </head>
+  <ul id='console'>
+  </ul>
+  <script>
+    var log = function(msg){
+    var c = document.getElementById('console');
+    var newItem = document.createElement('li');
+    newItem.innerHTML = msg;
+    c.appendChild(newItem);
+    }
+    
+    var x = Math.random();
+    
+    log('Previous random number (local): ' + localStorage.getItem('random'));
+    log('New random number: ' + x);
+    
+    localStorage.setItem('random', x);
+  </script>
 </html>
