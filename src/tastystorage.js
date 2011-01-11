@@ -6,7 +6,7 @@
     }
     
     var STORAGE_NAME = scope+'Storage',
-        STORAGE_REGEXP = RegExp(STORAGE_NAME+'=([a-zA-Z0-9%]*)'),
+        STORAGE_REGEXP = RegExp(STORAGE_NAME+'=([^;]*)'),
         FRESH = (scope == 'local') && ';expires=Tue, 13 Aug 2100 07:30:00 UTC' || '',
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
