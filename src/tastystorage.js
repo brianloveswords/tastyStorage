@@ -55,14 +55,22 @@
       'length': calculate_length()
     };
   };
+  var augment = function(storage) {
+    alert('augmenting');
+    return storage;
+  };
   /**
    * @constructor
    */
   var StorageWrapper = function(scope){
+    var existing_storage = global[scope+'Storage'];
+    if (existing_storage) return augment(existing_storage);
+    
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
   
-  global['localStorage'] || (global['localStorage'] = new StorageWrapper('local'));
-  global['sessionStorage'] || (global['sessionStorage'] = new StorageWrapper('session'));
+  global['localStorage'] = new StorageWrapper('local');
+  global['sessionStorage'] = new StorageWrapper('session');
+
 })(this, this.document, JSON);
