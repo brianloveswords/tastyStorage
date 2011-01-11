@@ -11,7 +11,9 @@
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
         encode = function(object){
-          return encodeURIComponent(JSON.stringify(object));
+          var stringed = JSON.stringify(object);
+          alert('encoded: ' + stringed);
+          return encodeURIComponent(stringed);
         },
         decode = function(string){
           var decoded = decodeURIComponent(string);
