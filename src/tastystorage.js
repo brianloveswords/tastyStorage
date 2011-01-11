@@ -12,12 +12,10 @@
         
         encode = function(object){
           var stringed = JSON.stringify(object);
-          alert('encoded: ' + stringed);
           return encodeURIComponent(stringed);
         },
         decode = function(string){
           var decoded = decodeURIComponent(string);
-          alert('decoded: ' + decoded);
           return (decoded && JSON.parse(decoded));
         },
         storage = (function(){
@@ -61,7 +59,6 @@
    * @constructor
    */
   var StorageWrapper = function(scope){
-    alert('defining ' + scope + ' storage');
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
