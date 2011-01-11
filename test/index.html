@@ -10,6 +10,8 @@
   </ul>
   
   <script>
+    alert(window.localStorage);
+    
     var log = function(msg){
     var c = document.getElementById('console');
     alert(c);
@@ -19,8 +21,6 @@
     }
     
     var x = Math.random();
-    
-    alert(localStorage.getItem('random'));
     
     log('Previous random number (local): ' + localStorage.getItem('random'));
     log('New random number: ' + x);
