@@ -1,10 +1,10 @@
 <html>
   <head>
     <script>
-       regexp = RegExp('localStorage=([a-zA-Z0-9%,]*)');
+       regexp = RegExp('localStorage=([a-zA-Z0-9%\.]*)');
        string = document.cookie;
        matches = string.match(regexp);
-       alert(matches);
+       alert(document.cookie);
        alert(matches[0]);
        alert(matches[1]);
     </script>
