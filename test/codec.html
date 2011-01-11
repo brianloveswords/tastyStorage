@@ -1,7 +1,12 @@
 <html>
   <head>
     <script>
-       alert(decodeURIComponent(document.cookie));
+       regexp = RegExp('localStorage=([a-zA-Z0-9%]*)');
+       string = document.cookie;
+       matches = string.match(regexp);
+       alert(matches);
+       alert(matches[0]);
+       alert(matches[1]);
     </script>
   </head>
 </html>
