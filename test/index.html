@@ -12,20 +12,32 @@
     <li>item one</li>
   </ul>
   
-  <script>
+  <script type="text/javascript">
     var log = function(msg){
-    var c = document.getElementById('console');
-    var newItem = document.createElement('li');
-    newItem.innerHTML = msg;
-    c.appendChild(newItem);
+      var c = document.getElementById('console');
+      var newItem = document.createElement('li');
+      newItem.innerHTML = msg;
+      c.appendChild(newItem);
     }
+    var obj = {
+      num1: Math.random(),
+      num2: Math.random(),
+      num3: Math.random(),
+      nums: {
+        mun1: "<html><head><title>TastyStorage test</title><script src='../src/json2.min.js'></script><script src='../src/tastystorage.js'></script></head>"
+      }
+    };
     
-    var x = Math.random();
-    
-    log('Previous random number (local): ' + localStorage.getItem('random'));
-    log('New random number: ' + x);
-    
-    localStorage.setItem('random', x);
+    var prev_obj = localStorage.getItem('test')
+    log('previous');
+    for (var prop in prev_obj) {
+      log('' + prop + ': ' + obj[prop]);
+    }
+    log('new');
+    for (var prop in obj) {
+      log('' + prop + ': ' + obj[prop]);
+    }
+    localStorage.setItem('test', x);
   </script>
   </body>
 </html>
