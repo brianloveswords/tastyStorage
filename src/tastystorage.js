@@ -74,11 +74,12 @@
     if ( !(this instanceof arguments.callee) ) return new StorageWrapper(scope);
     
     var existing_storage = global[scope+'Storage'];
-    if (existing_storage) return augment(existing_storage);
+    if (existing_storage instanceof Storage) return augment(existing_storage);
     
     var iface = prepare_storage(scope);
     for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
   };
   
   global['tastyStorage'] = new StorageWrapper('local');
+  global['StorageWrapper'] = StorageWrapper;
 })(this, this.document, JSON);
