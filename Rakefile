@@ -6,7 +6,7 @@ namespace :build do
     api = URI.parse('http://closure-compiler.appspot.com/')
     api.path = '/compile'
     params = {
-      :compilation_level => "ADVANCED_OPTIMIZATIONS",
+      :compilation_level => "SIMPLE_OPTIMIZATIONS",
       :output_format => "text",
       :output_info => "compiled_code",
       :js_code => File.read('./src/tastystorage.js'),
