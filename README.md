@@ -78,13 +78,31 @@ other string and it will use non-expiring cookies.
     session('contents') == 'quantum bees'  //false;
     console.log(local('test'))  //null
 
-The if for some reason you'd rather use the explicit methods than the interface shortcuts,
+If you'd rather use the explicit methods than the interface shortcuts,
     
     tastyStorage.setItem(key, value)
     tastyStorage.getItem(key)
     tastyStorage.removeItem(key)
     tastyStorage.clear()
     tastyStorage.len()
+
+## Building
+
+Run `rake` to build the minified version that includes
+[Crockford's json2.js](https://github.com/douglascrockford/JSON-js/blob/master/json2.js).
+Minification is done using the
+[Closure Compiler service API](http://code.google.com/closure/compiler/docs/api-tutorial1.html).
+
+If you don't want json2.js, you must *plan to provide your own JSON
+fallback*. You can build a version without it by doing `rake build:without_json`.
+ The script will check for a global JSON object that has
+`parse()` and `stringify()` methods and throw an error if one doesn't exist,
+so make sure to provide a fallback.
+
+# Links
+* [MDC reference for `document.cookie`](https://developer.mozilla.org/en/DOM/document.cookie)
+* [MDC reference for DOM Storage](https://developer.mozilla.org/en/dom/storage)
+* [W3C Web Storage Working Draft](http://www.w3.org/TR/webstorage/)
 
 # License
 The MIT License
