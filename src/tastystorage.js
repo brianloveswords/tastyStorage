@@ -44,10 +44,10 @@
         delete storage[key];
         update();
       },
-      'length': function() {
-        var len = 0;
-        for (var prop in storage) storage.hasOwnProperty(prop) && (len += 1);
-        return len;
+      'len': function() {
+        var length = 0;
+        for (var prop in storage) storage.hasOwnProperty(prop) && (length += 1);
+        return length;
       }
     };
   };
@@ -62,7 +62,7 @@
       'getItem': function(key) {
         return JSON.parse(storage.getItem(key));
       },
-      'length': function() {
+      'len': function() {
         return storage.length;
       }
     };
@@ -71,15 +71,36 @@
    * @constructor
    */
   var StorageWrapper = function(scope){
+    /* make sure we're constructing */
     if ( !(this instanceof arguments.callee) ) return new StorageWrapper(scope);
-    
+    scope = scope || 'local';
     var existing_storage = global[scope+'Storage'];
-    if (existing_storage instanceof Storage) return augment(existing_storage);
+    var methods = null;
     
-    var iface = prepare_storage(scope);
-    for (var prop in iface) iface.hasOwnProperty(prop) && (this[prop] = iface[prop]);
+    if (existing_storage instanceof Storage) {
+      methods = augment(existing_storage);
+    } else { 
+      methods = prepare_storage(scope);
+    }
+    
+    var iface = (function(){
+      /* if called as a constructor, construct a new StorageWrapper */
+      if (this instanceof arguments.callee) return new StorageWrapper(arguments[0]);
+      if (arguments.length == 0) return methods.len();
+      if (arguments.length == 1) return methods.getItem(arguments[0]);
+      if (arguments.length == 2) return methods.setItem(arguments[0], arguments[1]);
+      return undefined;
+    });
+      
+    for (var method in methods) {
+      console.log(method);
+      if (methods.hasOwnProperty(method) || method == 'length') {
+        iface[method] = methods[method];
+      }
+    }
+    
+    return iface;
   };
   
   global['tastyStorage'] = new StorageWrapper('local');
-  global['StorageWrapper'] = StorageWrapper;
 })(this, this.document, JSON);
