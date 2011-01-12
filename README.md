@@ -37,21 +37,31 @@ don't want to include this, see the Advanced section.
 When you include the js file, you get one global object - `tastyStorage`. By
 default it will try to use `localStorage` and fallback to `document.cookies`
 if the browser doesn't support native DOM Storage.
-
+    
+Here's the shortcut interface for the `tastyStorage` object:
+    
+    tastyStorage(key) -- gets the value stored for a key
+    tastyStorage(key, value) -- store a new value for key
+    tastyStorage(key, null) -- remove a key and its value
+    tastyStorage() -- retrieve count for how many keys are being stored
+    tastyStorage.clear() -- clear all keys
+    tastyStorage.interface -- 'DOMStorage' or 'document.cookies'
+   
+And here's a usage example:
+    
     tastyStorage('sandwich', {
       bread: 'rye',
       sauce: 'deli mustard',
       pickles: true
     });
-    var count = tastyStorage( );  /* will retrieve the length without any args */
+    var count = tastyStorage( );
     
     --- fast forward twenty pageloads --
     
     var sandwich = tastyStorage('sandwich');
     tastyStorage.clear()
     
-    console.log(tastyStorage.interface) /* 'DOMStorage' or 'document.cookies' */
-    
+   
 ## Advanced
 If you're willing to expand your mind, the `tastyStorage` interface has some
 more tricks up its sleeves.
