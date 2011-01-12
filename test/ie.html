@@ -31,7 +31,7 @@
       }
     };
     
-    var prev_obj = tastyStorage.getItem('test');
+    var prev_obj = tastyStorage('test');
     log('previous');
     for (var prop in prev_obj) {
       log('' + prop + ': ' + prev_obj[prop]);
@@ -42,7 +42,7 @@
       log('' + prop + ': ' + obj[prop]);
     }
     
-    tastyStorage.setItem('test', obj);
+    tastyStorage('test', obj);
   </script>
   </body>
 </html>
