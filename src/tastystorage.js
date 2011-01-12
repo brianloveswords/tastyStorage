@@ -61,8 +61,12 @@
   var augment = function(storage) {
     return {
       'interface': 'DOMStorage',
-      'clear': storage.clear,
-      'removeItem': storage.removeItem,
+      'clear': function(){
+        storage.clear();
+      },
+      'removeItem': function(key) {
+        storage.removeItem(key);
+      },
       'setItem': function(key, value){
         return storage.setItem(key, JSON.stringify(value));
       },
