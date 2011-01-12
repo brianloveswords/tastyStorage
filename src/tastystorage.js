@@ -34,7 +34,7 @@
         };
     
     return {
-      'interface': 'document.cookie',
+      'interface': function() { return 'document.cookie'; },
       'clear': function() {
         document.cookie = STORAGE_NAME + '=null' + SPOILED;
       },
@@ -60,7 +60,7 @@
   /* better-ify native Storage methods by automatically translating JSON */
   var augment = function(storage) {
     return {
-      'interface': 'DOMStorage',
+      'interface': function(){ return 'DOMStorage'; },
       'clear': function(){
         storage.clear();
       },
