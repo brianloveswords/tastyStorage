@@ -2,45 +2,43 @@
 Delicious localStorage for your webapps
 
 ## So what's the deal?
-<pre>localStorage</pre> and <pre>sessionStorage</pre> are pretty fly. It'd be
+`localStorage` and `sessionStorage` are pretty fly. It'd be
 superfly if we could use them without having to worry about IE and other
 non-compatible browsers exploding.
 
 ## That would be rad.
 That's what I thought. I've also included some added bonuses that hopefully
-make it more than just another <pre>localStorage</pre> wrapper.
+make it more than just another `localStorage` wrapper.
 
-The <pre>Storage</pre> interfaces are designed to be key/value storage, and it
+The native `Storage` interfaces are designed to be key/value storage, and it
 normally doesn't allow you to store complex values. So try to do something like this:
    
-   localStorage.setItem('test', {complex: [1,2,3,'a']})
+    localStorage.setItem('test', {complex: [1,2,3,'a']})
 
 and you're gonna get back this:
 
-   localStorage.getItem('test') // "[object Object]"
+    localStorage.getItem('test') // "[object Object]"
 
-Which is no fun at all. <pre>tastyStorage</pre> will automatically serialize
+Which is no fun at all. `tastyStorage` will automatically serialize
 and de-serialize your objects as you store and retrieve them.
 
 ## Great! Hey, why's it called tastyStorage?
 Well I had to make it work with IE (and older versions of Safari/FF) and what
 better way than cookies? tastyStorage will set up a common interface so you
-don't have to care about whether it's using <pre>localStorage</pre> or
-<pre>document.cookies</pre> in the background.
+don't have to care about whether it's using `localStorage` or
+`document.cookies` in the background.
 
 
 # Usage
 ## Basic
 
-Include the <pre>tastystorage.min.js</pre> from the <pre>build</pre>
-directory. Note that this comes with a JSON fallback for browsers that don't
-support native JSON. If you don't want to include this, see the Advanced
-section.
+Include the `tastystorage.min.js` from the `build` directory. Note that this
+comes with a JSON fallback for browsers that don't support native JSON. If you
+don't want to include this, see the Advanced section.
 
-When you include the js file, you get one global object -
-<pre>tastyStorage</pre>. By default it will try to use <pre>localStorage</pre>
-and fallback to <pre>document.cookies</pre> if the browser doesn't support
-native DOM Storage.
+When you include the js file, you get one global object - `tastyStorage`. By
+default it will try to use `localStorage` and fallback to `document.cookies`
+if the browser doesn't support native DOM Storage.
 
 
 # License
