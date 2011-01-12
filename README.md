@@ -17,7 +17,7 @@ normally doesn't allow you to store complex values. So try to do something like 
 
 and you're gonna get back this:
 
-    localStorage.getItem('test') // "[object Object]"
+    localStorage.getItem('test')    /* "[object Object]" */
 
 Which is no fun at all. `tastyStorage` will automatically serialize
 and de-serialize your objects as you store and retrieve them.
@@ -30,8 +30,6 @@ don't have to care about whether it's using `localStorage` or
 
 
 # Usage
-## Basic
-
 Include the `tastystorage.min.js` from the `build` directory. Note that this
 comes with a JSON fallback for browsers that don't support native JSON. If you
 don't want to include this, see the Advanced section.
@@ -40,6 +38,53 @@ When you include the js file, you get one global object - `tastyStorage`. By
 default it will try to use `localStorage` and fallback to `document.cookies`
 if the browser doesn't support native DOM Storage.
 
+    tastyStorage('sandwich', {
+      bread: 'rye',
+      sauce: 'deli mustard',
+      pickles: true
+    });
+    var count = tastyStorage( );  /* will retrieve the length without any args */
+    
+    --- fast forward twenty pageloads --
+    
+    var sandwich = tastyStorage('sandwich');
+    tastyStorage.clear()
+    
+    console.log(tastyStorage.interface) /* 'DOMStorage' or 'document.cookies' */
+    
+## Advanced
+If you're willing to expand your mind, the `tastyStorage` interface has some
+more tricks up its sleeves.
+
+One of the wilder features of the interface is that it can act as a constructor.
+
+    var session = new tastyStorage('session');
+    session('temporary', "I'll die when the browser closes");
+
+This usage brings up another fine point: the constructor takes a `scope`
+argument. If `scope == 'local'`, it will try to use `localStorage` in the
+background and fallback to non-expiring cookies. If `scope == 'session'`, it
+will attempt to use `sessionStorage` and fallback to session cookies. Any
+other string and it will use non-expiring cookies.
+
+    var session = new tastyStorage('session');
+    var local = new tastyStorage('local');
+    var jar = new tastyStorage('jar');
+    var bottle = new tastyStorage('bottle');
+
+    session('test', 'I may die young, but I live hard.');
+    jar('contents', 'quantum bees');
+    
+    session('contents') == 'quantum bees'  //false;
+    console.log(local('test'))  //null
+
+The if for some reason you'd rather use the explicit methods than the interface shortcuts,
+    
+    tastyStorage.setItem(key, value)
+    tastyStorage.getItem(key)
+    tastyStorage.removeItem(key)
+    tastyStorage.clear()
+    tastyStorage.len()
 
 # License
 The MIT License
