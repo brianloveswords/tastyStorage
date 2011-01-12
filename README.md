@@ -40,12 +40,12 @@ if the browser doesn't support native DOM Storage.
     
 Here's the shortcut interface for the `tastyStorage` object:
     
-    tastyStorage(key) -- gets the value stored for a key
-    tastyStorage(key, value) -- store a new value for key
-    tastyStorage(key, null) -- remove a key and its value
-    tastyStorage() -- retrieve count for how many keys are being stored
-    tastyStorage.clear() -- clear all keys
-    tastyStorage.interface -- 'DOMStorage' or 'document.cookies'
+    tastyStorage(key)         -- gets the value stored for a key
+    tastyStorage(key, value)  -- store a new value for key
+    tastyStorage(key, null)   -- remove a key and its value
+    tastyStorage()            -- retrieve count for how many keys are being stored
+    tastyStorage.clear()      -- clear all keys
+    tastyStorage.interface()  -- 'DOMStorage' or 'document.cookies'
    
 And here's a usage example:
     
