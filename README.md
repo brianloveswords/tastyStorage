@@ -99,10 +99,28 @@ fallback*. You can build a version without it by doing `rake build:without_json`
 `parse()` and `stringify()` methods and throw an error if one doesn't exist,
 so make sure to provide a fallback.
 
+# Issues &amp; Limitations
+* This isn't for storing the collected works of H.P. Lovecraft. There is a
+  4096 byte size limit on cookies and a limit of anywhere between 30 and 600
+  cookies per domain. Each `new tastyStorage(scope)` uses one cookie (unless
+  it can use `localStorage` or `sessionStorage`)
+
+* There's currently nothing that prevents you from going over the 4k limit on
+  a cookie. I haven't tested it yet, and I don't know what'll happen if you do
+  that.
+
+* `sessionStorage` and session-restricted cookies don't work exactly the same --
+  pretty much none of
+  [the specification](http://www.w3.org/TR/webstorage/#the-sessionstorage-attribute)
+  applies to cookies. What this means practically is that `sessionStorage` is a
+  lot more volatile than session-expiring cookies. While session cookies will
+  persist across new tabs in Firefox and Chrome, `sessionStorage` does not.
+
 # Links
 * [MDC reference for `document.cookie`](https://developer.mozilla.org/en/DOM/document.cookie)
 * [MDC reference for DOM Storage](https://developer.mozilla.org/en/dom/storage)
 * [W3C Web Storage Working Draft](http://www.w3.org/TR/webstorage/)
+* [Cookie Limits Test](http://myownplayground.atspace.com/cookietest.html)
 
 # License
 The MIT License
