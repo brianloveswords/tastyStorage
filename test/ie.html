@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TastyStorage test</title>
+    <script src='../src/json2.min.js'></script>
+    <script src='../src/tastystorage.js'></script>
+  </head>
+  
+  <body>
+  
+  <ul id='console'>
+    <li>item one</li>
+  </ul>
+  
+  <script>
+    var tastyStorage = StorageWrapper('cookie');
+    
+    var log = function(msg){
+      var c = document.getElementById('console');
+      var newItem = document.createElement('li');
+      newItem.innerHTML = msg;
+      c.appendChild(newItem);
+    }
+    
+    var obj = {
+      num1: Math.random(),
+      num2: Math.random(),
+      num3: Math.random(),
+      nums: {
+        mun1: "<html><head><title>TastyStorage test</title><scipt src='../src/json2.min.js'></scrit><scrit src='../src/tastystorage.js'></scrpt></head>"
+      }
+    };
+    
+    var prev_obj = tastyStorage.getItem('test');
+    log('previous');
+    for (var prop in prev_obj) {
+      log('' + prop + ': ' + prev_obj[prop]);
+    }
+    
+    log('new');
+    for (var prop in obj) {
+      log('' + prop + ': ' + obj[prop]);
+    }
+    
+    tastyStorage.setItem('test', obj);
+  </script>
+  </body>
+</html>
