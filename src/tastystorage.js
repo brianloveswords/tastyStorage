@@ -74,10 +74,11 @@
     /* make sure we're constructing */
     if ( !(this instanceof arguments.callee) ) return new StorageWrapper(scope);
     scope = scope || 'local';
+    var native_storage_exists = (typeof Storage !== 'undefined' && Storage.prototype.getItem);
     var existing_storage = global[scope+'Storage'];
     var methods = null;
     
-    if (existing_storage instanceof Storage) {
+    if (native_storage_exists && existing_storage instanceof Storage) {
       methods = augment(existing_storage);
     } else { 
       methods = prepare_storage(scope);
