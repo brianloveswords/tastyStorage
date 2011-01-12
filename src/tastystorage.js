@@ -97,7 +97,10 @@
       if (this instanceof arguments.callee) return new StorageWrapper(arguments[0]);
       if (arguments.length == 0) return methods.len();
       if (arguments.length == 1) return methods.getItem(arguments[0]);
-      if (arguments.length == 2) return methods.setItem(arguments[0], arguments[1]);
+      if (arguments.length == 2) {
+        if (arguments[1] === null) return methods.removeItem(arguments[0]);
+        return methods.setItem(arguments[0], arguments[1]);
+      }
       return undefined;
     });
       
