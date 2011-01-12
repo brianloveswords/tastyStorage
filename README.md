@@ -95,7 +95,7 @@ Minification is done using the
 
 If you don't want json2.js, you must *plan to provide your own JSON
 fallback*. You can build a version without it by doing `rake build:without_json`.
- The script will check for a global JSON object that has
+ The script will check at runtime for a global JSON object that has
 `parse()` and `stringify()` methods and throw an error if one doesn't exist,
 so make sure to provide a fallback.
 
