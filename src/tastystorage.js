@@ -1,4 +1,3 @@
-// determine JSON stringifier/parser to use.
 (function(global, document, JSON){
   var prepare_storage = function(scope){
     if (!JSON || !JSON.stringify || !JSON.parse) {
@@ -10,19 +9,26 @@
         FRESH = (scope !== 'session') && ';expires=Tue, 13 Aug 2100 07:30:00 UTC' || '',
         SPOILED = ';expires=Tue, 13 Aug 1985 07:30:00 UTC',
         
+        /* uri encode and JSON stringify the object */
         encode = function(object){
           var stringed = JSON.stringify(object);
           return encodeURIComponent(stringed);
         },
+        
+        /* de-URI encode and JSON parse the string */
         decode = function(string){
           var decoded = decodeURIComponent(string);
           return (decoded && JSON.parse(decoded));
         },
+        
+        /* pull the stored object out of the cookie if it exists */
         storage = (function(){
           var matches = document.cookie.match(STORAGE_REGEXP),
               result = (matches && matches[1]) || '';
           return (decode(result) || {});
         })(),
+        
+        /* update the cookie with the latest serialized storage object */
         update = function(){
           document.cookie = STORAGE_NAME + '=' + encode(storage) + FRESH;
         };
@@ -51,6 +57,7 @@
       }
     };
   };
+  /* better-ify native Storage methods by automatically translating JSON */
   var augment = function(storage) {
     return {
       'interface': 'DOMStorage',
@@ -67,6 +74,7 @@
       }
     };
   };
+  
   /**
    * @constructor
    */
@@ -74,9 +82,9 @@
     /* make sure we're constructing */
     if ( !(this instanceof arguments.callee) ) return new StorageWrapper(scope);
     scope = scope || 'local';
-    var native_storage_exists = (typeof Storage !== 'undefined' && Storage.prototype.getItem);
-    var existing_storage = global[scope+'Storage'];
-    var methods = null;
+    var native_storage_exists = (typeof Storage !== 'undefined' && Storage.prototype.getItem),
+        existing_storage = global[scope+'Storage'],
+        methods = null;
     
     if (native_storage_exists && existing_storage instanceof Storage) {
       methods = augment(existing_storage);
