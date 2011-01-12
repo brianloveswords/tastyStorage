@@ -93,10 +93,7 @@
     });
       
     for (var method in methods) {
-      console.log(method);
-      if (methods.hasOwnProperty(method) || method == 'length') {
-        iface[method] = methods[method];
-      }
+      if (methods.hasOwnProperty(method)) iface[method] = methods[method];
     }
     
     return iface;
